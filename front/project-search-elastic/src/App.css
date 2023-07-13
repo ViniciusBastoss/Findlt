@@ -1,0 +1,92 @@
+/* Estilização básica da página */
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+form {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+}
+
+button[type="submit"] {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p {
+  margin: 0;
+  color: #555;
+}
+
+.buscador {
+  position: relative;
+}
+
+.buscador.realizou-busca form {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.resultados-lista {
+  margin-top: 20px;
+}
+
+.espacamento-superior {
+  margin-top: 40px; /* Espaçamento superior maior apenas para a lista de resultados */
+}
+
+.resultados-lista li {
+  display: flex;
+  flex-direction: column;
+}
