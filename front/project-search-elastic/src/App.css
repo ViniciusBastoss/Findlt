@@ -86,7 +86,18 @@ p {
   margin-top: 40px; /* Espaçamento superior maior apenas para a lista de resultados */
 }
 
+.results {
+  margin-top: 25%; /* Espaçamento superior maior apenas para a lista de resultados */
+}
+
 .resultados-lista li {
   display: flex;
   flex-direction: column;
+}
+
+.search {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

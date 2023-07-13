@@ -1,7 +1,8 @@
+import '../styless/NameBuscadorStyless.css';
 function NameBuscador(){
     return(
         <div>
-            <h1>FindIt</h1>
+            <a href="http://localhost:3000/"><h1>FindIt</h1></a>
         </div>
     )
 }

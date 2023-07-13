@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 function Buscador() {
   const [termoBusca, setTermoBusca] = useState('');
   const [resultados, setResultados] = useState([]);
-  const [pagina, setPagina] = useState(1);
+  const [pagina, setPagina] = useState(-1);
   const [proximaPaginaDisponivel, setProximaPaginaDisponivel] = useState(true);
 
   const handleChange = (event) => {
@@ -68,14 +68,20 @@ function Buscador() {
     }
   };
 
+  const isTermoBuscaVazio = termoBusca.trim() === '';
+  const exibirBotoesPaginacao = pagina != -1;
+
   return (
     <div>
-      <NameBuscador/>
+      <div className='search'>
+      <NameBuscador />
       <form onSubmit={handleSubmit}>
         <input type="text" value={termoBusca} onChange={handleChange} />
         <button type="submit">Buscar</button>
       </form>
-
+      </div>
+      
+      <div className='results'>
       <ul>
         {resultados.map((resultado) => (
           <li key={resultado.key}>
@@ -85,11 +91,18 @@ function Buscador() {
           </li>
         ))}
       </ul>
-
-      <div>
-        <button onClick={handlePaginaAnterior} disabled={pagina === 1}>Página Anterior</button>
-        <button onClick={handleProximaPagina} disabled={!proximaPaginaDisponivel}>Próxima Página</button>
       </div>
+
+      {exibirBotoesPaginacao && (
+        <div>
+          <button onClick={handlePaginaAnterior} disabled={pagina === 1}>
+            Página Anterior
+          </button>
+          <button onClick={handleProximaPagina} disabled={!proximaPaginaDisponivel}>
+            Próxima Página
+          </button>
+        </div>
+      )}
     </div>
   );
 }
