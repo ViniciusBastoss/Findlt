@@ -1,7 +1,10 @@
 /* Estilização básica da página */
 body {
-  font-family: Arial, sans-serif;
-  padding: 20px;
+  margin: 0vh;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(#60eaba, #4ee7ea, #0056b3);
+  overflow: hidden;
 }
 
 .container {

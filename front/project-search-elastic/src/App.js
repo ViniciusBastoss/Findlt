@@ -1,5 +1,4 @@
 import './App.css';
-import NameBuscador from './componentes/NameBuscador';
 import SearchBar from './componentes/SearchBar';
 import React, { useState, useEffect } from 'react';
 
@@ -74,7 +73,6 @@ function Buscador() {
 
   return (
     <div>
-      <NameBuscador />
       <SearchBar termoBusca={termoBusca} handleChange={handleChange} handleSubmit={handleSubmit} />
       <div className='results'>
          <ul>
