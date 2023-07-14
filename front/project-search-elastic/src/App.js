@@ -1,5 +1,6 @@
 import './App.css';
 import NameBuscador from './componentes/NameBuscador';
+import SearchBar from './componentes/SearchBar';
 import React, { useState, useEffect } from 'react';
 
 function Buscador() {
@@ -19,7 +20,7 @@ function Buscador() {
     try {
       const response = await fetch(`http://localhost:8080/v1/search?query=${termoBusca}&page=${pagina}`);
       const data = await response.json();
-      const resultadosFormatados = formatarResultados(data);
+      const resultadosFormatados = data;
       setResultados(resultadosFormatados);
 
       // Verifica se a próxima página está disponível
@@ -34,7 +35,7 @@ function Buscador() {
       try {
         const response = await fetch(`http://localhost:8080/v1/search?query=${termoBusca}&page=${pagina}`);
         const data = await response.json();
-        const resultadosFormatados = formatarResultados(data);
+        const resultadosFormatados = data;
         setResultados(resultadosFormatados);
 
         // Verifica se a próxima página está disponível
@@ -50,7 +51,7 @@ function Buscador() {
   const formatarResultados = (data) => {
     return data.map((resultado, index) => {
       const { title, url, abs } = resultado;
-      const absFormatado = abs.replace(/<em>/g, '').replace(/<\/em>/g, '');
+      const absFormatado = abs.replace(/<em>/g, '<em>').replace(/<\/em>/g, '</em>');
       return { title, url, abs: absFormatado, key: index };
     });
   };
@@ -73,25 +74,20 @@ function Buscador() {
 
   return (
     <div>
-      <div className='search'>
       <NameBuscador />
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={termoBusca} onChange={handleChange} />
-        <button type="submit">Buscar</button>
-      </form>
-      </div>
-      
+      <SearchBar termoBusca={termoBusca} handleChange={handleChange} handleSubmit={handleSubmit} />
       <div className='results'>
-      <ul>
-        {resultados.map((resultado) => (
-          <li key={resultado.key}>
-            <h3>{resultado.title}</h3>
-            <a href={resultado.url}>{resultado.url}</a>
-            <p>{resultado.abs}</p>
-          </li>
-        ))}
-      </ul>
+         <ul>
+          {resultados.map((resultado) => (
+           <li key={resultado.key}>
+             <h3>{resultado.title}</h3>
+             <a href={resultado.url}>{resultado.url}</a>
+             <p dangerouslySetInnerHTML={{ __html: resultado.abs }}></p>
+           </li>
+            ))}
+        </ul>
       </div>
+
 
       {exibirBotoesPaginacao && (
         <div>
