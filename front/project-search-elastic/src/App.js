@@ -69,11 +69,15 @@ function Buscador() {
   };
 
   const isTermoBuscaVazio = termoBusca.trim() === '';
-  const exibirBotoesPaginacao = pagina != -1;
+  const [exibirBotoesPaginacao, setExBotPag] = useState(pagina != -1);
+
+  const updateExBotPag = (newValue)=>{
+    setExBotPag(newValue);
+  };
 
   return (
     <div>
-      <SearchBar termoBusca={termoBusca} handleChange={handleChange} handleSubmit={handleSubmit} />
+      <SearchBar termoBusca={termoBusca} handleChange={handleChange} handleSubmit={handleSubmit} setExBotPag = {setExBotPag}/>
       <div className='results'>
          <ul>
           {resultados.map((resultado) => (
@@ -89,7 +93,7 @@ function Buscador() {
 
       {exibirBotoesPaginacao && (
         <div>
-          <button onClick={handlePaginaAnterior} disabled={pagina === 1}>
+          <button onClick={handlePaginaAnterior} disabled={pagina === 1 }>
             Página Anterior
           </button>
           <button onClick={handleProximaPagina} disabled={!proximaPaginaDisponivel}>

@@ -1,8 +1,8 @@
 import '../styless/NameBuscadorStyless.css';
-function NameBuscador(){
+function NameBuscador({isEstiloA}){
     return(
         <div>
-            <a href="http://localhost:3000/"><h1>FindIt</h1></a>
+            <a className={isEstiloA ? 'titulo' : 'titulo2'} href="http://localhost:3000/"><h1>FindIt</h1></a>
         </div>
     )
 }
