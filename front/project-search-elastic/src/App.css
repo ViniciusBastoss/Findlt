@@ -2,9 +2,11 @@
 body {
   margin: 0vh;
   height: 100vh;
-  width: 100vw;
+  width: 98vw;
   background: linear-gradient(#60eaba, #4ee7ea, #0056b3);
-  overflow: hidden;
+  /*overflow: hidden;*/
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 .container {
@@ -46,10 +48,11 @@ ul {
 }
 
 li {
-  margin-bottom: 20px;
-  padding: 10px;
+  margin-bottom: 0.5vmax;
+  padding: 1vmax;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  background: #0d0505;
+  border-radius: 3vmax;
 }
 
 h3 {
@@ -68,7 +71,7 @@ a:hover {
 
 p {
   margin: 0;
-  color: #555;
+  color: #ffffff;
 }
 
 .buscador {
@@ -90,7 +93,7 @@ p {
 }
 
 .results {
-  margin-top: 25%; /* Espaçamento superior maior apenas para a lista de resultados */
+  margin-top: 12%; /* Espaçamento superior maior apenas para a lista de resultados */
 }
 
 .resultados-lista li {

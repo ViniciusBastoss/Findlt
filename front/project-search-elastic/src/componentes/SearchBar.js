@@ -5,6 +5,7 @@ import NameBuscador from './NameBuscador';
 const SearchBar = ({ termoBusca, handleChange, handleSubmit, setExBotPag}) => {
   const [botaoPressionado, setBotaoPressionado] = useState(false);
   const [isEstiloA, setIsEstiloA] = useState(true);
+  
 
   const alternarEstilo = () => {
     if (!botaoPressionado && !(termoBusca.trim() === '')) {
@@ -13,7 +14,10 @@ const SearchBar = ({ termoBusca, handleChange, handleSubmit, setExBotPag}) => {
       setExBotPag(true);
     }
     else
-    setBotaoPressionado(false);
+      if(!(termoBusca.trim() === ''))
+        setExBotPag(true);
+      else
+         setExBotPag(false);
   };
 
   return (
