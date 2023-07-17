@@ -7,6 +7,7 @@ function Buscador() {
   const [resultados, setResultados] = useState([]);
   const [pagina, setPagina] = useState(-1);
   const [proximaPaginaDisponivel, setProximaPaginaDisponivel] = useState(true);
+  const [totalPaginas, setTotalPaginas] = useState(2);
 
   const handleChange = (event) => {
     setTermoBusca(event.target.value);
@@ -15,6 +16,8 @@ function Buscador() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setPagina(1); // Reinicia a página para 1 ao fazer uma nova busca
+    setTotalPaginas(0);
+    let pages = 1;
 
     try {
       const response = await fetch(`http://localhost:8080/v1/search?query=${termoBusca}&page=${pagina}`);
@@ -24,6 +27,12 @@ function Buscador() {
 
       // Verifica se a próxima página está disponível
       setProximaPaginaDisponivel(data.length > 0);
+      let response2 = 10;
+      do{
+        response2 = await fetch(`http://localhost:8080/v1/search?query=${termoBusca}&page=${totalPaginas}`);
+        setTotalPaginas(totalPaginas + 1);
+      }while(response2.length > 0)
+
     } catch (error) {
       console.error('Erro ao realizar a busca:', error);
     }
@@ -77,6 +86,7 @@ function Buscador() {
 
   return (
     <div>
+      <h2>{totalPaginas}</h2>
       <SearchBar termoBusca={termoBusca} handleChange={handleChange} handleSubmit={handleSubmit} setExBotPag = {setExBotPag}/>
       <div className='results'>
          <ul>
@@ -98,7 +108,7 @@ function Buscador() {
           <button onClick={handlePaginaAnterior} disabled={pagina === 1 }>
             Página Anterior
           </button>
-          <button onClick={handleProximaPagina} disabled={!proximaPaginaDisponivel}>
+          <button onClick={handleProximaPagina} disabled={pagina === totalPaginas - 1 }>
             Próxima Página
           </button>
         </div>

@@ -1,0 +1,10 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /v1
+
+elasticsearch:
+  connection:
+    username: elastic
+    password: X1OcV9OXlj0WNitZq*in
+
