@@ -6,8 +6,7 @@ function Buscador() {
   const [termoBusca, setTermoBusca] = useState('');
   const [resultados, setResultados] = useState([]);
   const [pagina, setPagina] = useState(-1);
-  const [proximaPaginaDisponivel, setProximaPaginaDisponivel] = useState(true);
-  const [totalPaginas, setTotalPaginas] = useState(2);
+  const [totalPaginas, setTotalPaginas] = useState(0);
 
   const handleChange = (event) => {
     setTermoBusca(event.target.value);
@@ -16,23 +15,12 @@ function Buscador() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setPagina(1); // Reinicia a página para 1 ao fazer uma nova busca
-    setTotalPaginas(0);
-    let pages = 1;
-
     try {
-      const response = await fetch(`http://localhost:8080/v1/search?query=${termoBusca}&page=${pagina}`);
+      const response = await fetch(`http://localhost:8080/v1/search?query=${termoBusca}&page=${pagina}&includePages=true`);
       const data = await response.json();
-      const resultadosFormatados = data;
-      setResultados(resultadosFormatados);
-
+      setResultados(data.results);
+      setTotalPaginas(data.pages)
       // Verifica se a próxima página está disponível
-      setProximaPaginaDisponivel(data.length > 0);
-      let response2 = 10;
-      do{
-        response2 = await fetch(`http://localhost:8080/v1/search?query=${termoBusca}&page=${totalPaginas}`);
-        setTotalPaginas(totalPaginas + 1);
-      }while(response2.length > 0)
-
     } catch (error) {
       console.error('Erro ao realizar a busca:', error);
     }
@@ -43,11 +31,8 @@ function Buscador() {
       try {
         const response = await fetch(`http://localhost:8080/v1/search?query=${termoBusca}&page=${pagina}`);
         const data = await response.json();
-        const resultadosFormatados = data;
-        setResultados(resultadosFormatados);
-
+        setResultados(data.results);
         // Verifica se a próxima página está disponível
-        setProximaPaginaDisponivel(data.length > 0);
       } catch (error) {
         console.error('Erro ao realizar a busca:', error);
       }
@@ -56,29 +41,21 @@ function Buscador() {
     fetchResultados();
   }, [pagina]);
 
-  const formatarResultados = (data) => {
-    return data.map((resultado, index) => {
-      const { title, url, abs } = resultado;
-      const absFormatado = abs.replace(/<em>/g, '<em>').replace(/<\/em>/g, '</em>');
-      return { title, url, abs: absFormatado, key: index };
-    });
-  };
 
   const handlePaginaAnterior = () => {
     if (pagina > 1) {
       setPagina(pagina - 1);
-      setProximaPaginaDisponivel(true); // Habilita novamente o botão "Próxima Página"
     }
   };
 
   const handleProximaPagina = () => {
-    if (proximaPaginaDisponivel) {
+    if (pagina + 1 <= totalPaginas) {
       setPagina(pagina + 1);
     }
   };
 
   const isTermoBuscaVazio = termoBusca.trim() === '';
-  const [exibirBotoesPaginacao, setExBotPag] = useState(pagina != -1);
+  const [exibirBotoesPaginacao, setExBotPag] = useState(pagina !== -1);
 
   const updateExBotPag = (newValue)=>{
     setExBotPag(newValue);
@@ -86,11 +63,10 @@ function Buscador() {
 
   return (
     <div>
-      <h2>{totalPaginas}</h2>
       <SearchBar termoBusca={termoBusca} handleChange={handleChange} handleSubmit={handleSubmit} setExBotPag = {setExBotPag}/>
       <div className='results'>
          <ul>
-          {resultados.map((resultado) => (
+          {resultados && resultados.map((resultado) => (
            <li key={resultado.key}>
              <h3>{resultado.title}</h3>
              <a href={resultado.url}>{resultado.url}</a>
@@ -100,15 +76,12 @@ function Buscador() {
         </ul>
       </div>
 
-      {!proximaPaginaDisponivel && <h2>teste</h2>}
-
-
       {exibirBotoesPaginacao && (
         <div>
           <button onClick={handlePaginaAnterior} disabled={pagina === 1 }>
             Página Anterior
           </button>
-          <button onClick={handleProximaPagina} disabled={pagina === totalPaginas - 1 }>
+          <button onClick={handleProximaPagina} disabled={pagina + 1 > totalPaginas }>
             Próxima Página
           </button>
         </div>

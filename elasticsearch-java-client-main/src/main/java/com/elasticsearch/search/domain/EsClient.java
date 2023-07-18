@@ -85,14 +85,15 @@ public class EsClient {
             ._toQuery();
 
         SearchResponse<ObjectNode> response;
+        SearchResponse<ObjectNode> response2;
         try {
             if(includePages){
-                response = elasticsearchClient.search(s -> s
+                response2 = elasticsearchClient.search(s -> s
                         .index("wikipedia").from(0).size(10000)
                         .query(matchQuery).highlight(highlight), ObjectNode.class
                 );
-                List<Hit<ObjectNode>> hits = response.hits().hits();
-                pages.set(hits.size()/PAGE_SIZE);
+                List<Hit<ObjectNode>> hits = response2.hits().hits();
+                pages.set((int)Math.ceil((double)hits.size()/PAGE_SIZE));
             }
             response = elasticsearchClient.search(s -> s
                 .index("wikipedia").from(PAGE_SIZE * (page - 1)).size(PAGE_SIZE)
