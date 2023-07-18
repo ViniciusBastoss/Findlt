@@ -1,5 +1,6 @@
 import './App.css';
 import SearchBar from './componentes/SearchBar';
+import Pagination from './componentes/Pagination';
 import React, { useState, useEffect } from 'react';
 
 function Buscador() {
@@ -41,19 +42,6 @@ function Buscador() {
     fetchResultados();
   }, [pagina]);
 
-
-  const handlePaginaAnterior = () => {
-    if (pagina > 1) {
-      setPagina(pagina - 1);
-    }
-  };
-
-  const handleProximaPagina = () => {
-    if (pagina + 1 <= totalPaginas) {
-      setPagina(pagina + 1);
-    }
-  };
-
   const isTermoBuscaVazio = termoBusca.trim() === '';
   const [exibirBotoesPaginacao, setExBotPag] = useState(pagina !== -1);
 
@@ -68,24 +56,17 @@ function Buscador() {
          <ul>
           {resultados && resultados.map((resultado) => (
            <li key={resultado.key}>
-             <h3>{resultado.title}</h3>
-             <a href={resultado.url}>{resultado.url}</a>
+             <a href={resultado.url}><h3>{resultado.title}</h3></a>
              <p dangerouslySetInnerHTML={{ __html: resultado.abs }}></p>
            </li>
             ))}
         </ul>
       </div>
 
-      {exibirBotoesPaginacao && (
-        <div>
-          <button onClick={handlePaginaAnterior} disabled={pagina === 1 }>
-            Página Anterior
-          </button>
-          <button onClick={handleProximaPagina} disabled={pagina + 1 > totalPaginas }>
-            Próxima Página
-          </button>
-        </div>
+      {exibirBotoesPaginacao && totalPaginas === 0 &&(
+        <h1>Nada encontrado</h1>
       )}
+      <Pagination totalPages={totalPaginas} atualPage={pagina} setPagina={setPagina}/>
     </div>
   );
 }

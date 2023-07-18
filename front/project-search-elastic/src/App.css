@@ -47,7 +47,7 @@ ul {
   padding: 0;
 }
 
-li {
+.results li {
   margin-bottom: 0.5vmax;
   padding: 1vmax;
   border: 1px solid #ccc;
@@ -101,6 +101,16 @@ p {
   flex-direction: column;
 }
 
+.pagination{
+  display: flex;
+  list-style: none;
+}
+
+.pagination__item--active {
+  background: none;
+  font-weight: bold;
+  border:none;
+}
 
 
 

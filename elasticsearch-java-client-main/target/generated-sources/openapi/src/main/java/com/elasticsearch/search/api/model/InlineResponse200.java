@@ -16,7 +16,7 @@ import javax.validation.constraints.*;
 /**
  * InlineResponse200
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-07-18T13:56:20.744416930-03:00[America/Sao_Paulo]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-07-18T17:30:38.243903779-03:00[America/Sao_Paulo]")
 
 public class InlineResponse200  implements Serializable {
   private static final long serialVersionUID = 1L;
