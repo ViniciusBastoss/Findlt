@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 function Buscador() {
   const [termoBusca, setTermoBusca] = useState('');
   const [resultados, setResultados] = useState([]);
-  const [pagina, setPagina] = useState(-1);
+  const [pagina, setPagina] = useState(0);
   const [totalPaginas, setTotalPaginas] = useState(0);
 
   const handleChange = (event) => {
@@ -17,7 +17,7 @@ function Buscador() {
     event.preventDefault();
     setPagina(1); // Reinicia a página para 1 ao fazer uma nova busca
     try {
-      const response = await fetch(`http://localhost:8080/v1/search?query=${termoBusca}&page=${pagina}&includePages=true`);
+      const response = await fetch(`http://localhost:8080/v1/search?query=${termoBusca}&page=1&includePages=true`);
       const data = await response.json();
       setResultados(data.results);
       setTotalPaginas(data.pages)
@@ -43,7 +43,7 @@ function Buscador() {
   }, [pagina]);
 
   const isTermoBuscaVazio = termoBusca.trim() === '';
-  const [exibirBotoesPaginacao, setExBotPag] = useState(pagina !== -1);
+  const [exibirBotoesPaginacao, setExBotPag] = useState(pagina !== 0);
 
   const updateExBotPag = (newValue)=>{
     setExBotPag(newValue);
@@ -66,7 +66,7 @@ function Buscador() {
       {exibirBotoesPaginacao && totalPaginas === 0 &&(
         <h1>Nada encontrado</h1>
       )}
-      <Pagination totalPages={totalPaginas} atualPage={pagina} setPagina={setPagina}/>
+      <Pagination totalPages={totalPaginas} atualPage={pagina} setPagina={setPagina} exibirBotoesPaginacao={exibirBotoesPaginacao &&!totalPaginas < 1}/>
     </div>
   );
 }
