@@ -10,10 +10,24 @@ function Buscador() {
   const [totalPaginas, setTotalPaginas] = useState(0);
   const [isLoading, setIsLoading] = useState(false); // Variável de estado para controlar o estado de carregamento
   const[exibirNadaEncontrado, setExibirNadaEncontrado] = useState(false);
+  const isTermoBuscaVazio = termoBusca.trim() === '';
+  const [exibirBotoesPaginacao, setExBotPag] = useState(pagina !== 0);
+  const updateExBotPag = (newValue)=>{
+    setExBotPag(newValue);
+  };
+  const[botaoPesquisaAtivado,setBotaoPesquisaAtivado] = useState(true);
+  const [textBusc, setTextBusc] = useState('');
 
   const handleChange = (event) => {
-    setTermoBusca(event.target.value);
-  };
+      setTermoBusca(event.target.value);
+  }
+
+  const setPaginaButton = (page) =>{
+    if(botaoPesquisaAtivado)
+    setTextBusc(termoBusca);
+    setPagina(page);
+  }
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -33,6 +47,7 @@ function Buscador() {
     }
 
     setIsLoading(false); // Finaliza o carregamento
+    setTextBusc(termoBusca);
   };
 
   useEffect(() => {
@@ -40,7 +55,7 @@ function Buscador() {
       setIsLoading(true); // Inicia o carregamento
 
       try {
-        const response = await fetch(`http://localhost:8080/v1/search?query=${termoBusca}&page=${pagina}`);
+        const response = await fetch(`http://localhost:8080/v1/search?query=${textBusc}&page=${pagina}`);
         const data = await response.json();
         setResultados(data.results);
         if (data.results.length === 0) {
@@ -49,7 +64,7 @@ function Buscador() {
       } catch (error) {
         console.error('Erro ao realizar a busca:', error);
       }
-
+      setBotaoPesquisaAtivado(false);
       setIsLoading(false); // Finaliza o carregamento
     };
 
@@ -57,17 +72,9 @@ function Buscador() {
 
   }, [pagina]);
 
-  const isTermoBuscaVazio = termoBusca.trim() === '';
-
-  const [exibirBotoesPaginacao, setExBotPag] = useState(pagina !== 0);
-
-  const updateExBotPag = (newValue)=>{
-    setExBotPag(newValue);
-  };
-
   return (
     <div>
-      <SearchBar termoBusca={termoBusca} handleChange={handleChange} handleSubmit={handleSubmit} setExBotPag={setExBotPag} />
+      <SearchBar termoBusca={termoBusca} setBotaoPesquisaAtivado={setBotaoPesquisaAtivado} handleChange={handleChange} handleSubmit={handleSubmit} setExBotPag={setExBotPag} />
   
       {isLoading ? (
         <div className='loading'>
@@ -75,7 +82,8 @@ function Buscador() {
         </div>
       ) : (
         <>
-          <div className={`results ${isTermoBuscaVazio ? 'hidden' : ''}`}>
+        {resultados  && totalPaginas != 0 && (<div className='NumeroResultados'>Aproximadamente {totalPaginas * 10} resultados encontrados</div>)}
+         <div className={`results ${isTermoBuscaVazio ? 'hidden' : ''}`}>
             <ul>
               {resultados && resultados.map((resultado) => (
                 <li key={resultado.key}>
@@ -93,7 +101,7 @@ function Buscador() {
             <Pagination
               totalPages={totalPaginas}
               atualPage={pagina}
-              setPagina={setPagina}
+              setPagina={setPaginaButton}
               exibirBotoesPaginacao={exibirBotoesPaginacao && !totalPaginas < 1}
             />
 

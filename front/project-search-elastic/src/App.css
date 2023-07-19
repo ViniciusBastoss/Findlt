@@ -47,6 +47,9 @@ ul {
   list-style: none;
   padding: 0;
 }
+.results {
+  animation: pulsate 1s infinite;
+}
 
 .results li {
   margin-bottom: 0.5vmax;
@@ -54,11 +57,8 @@ ul {
   /*border: 1px solid #ccc;*/
   border: none;
   border-radius: 1vmax;
-
   background: #faf9f9;
-
   transition: box-shadow 0.3s ease-in-out;
-
   opacity: 0;
   animation: fadeIn 1.5s ease-in-out forwards;
 
@@ -77,11 +77,6 @@ ul {
 .results li:focus{
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
-
-.results {
-  animation: pulsate 1s infinite;
-}
-
 
 h3 {
   margin: 0;
@@ -122,7 +117,7 @@ p {
 }
 
 .results {
-  margin-top: 12%; /* Espaçamento superior maior apenas para a lista de resultados */
+  margin-top: 0vmax; /* Espaçamento superior maior apenas para a lista de resultados */
   width: 40vmax;
   margin-left: 10vmax;
 }
@@ -132,12 +127,19 @@ p {
   flex-direction: column;
 }
 
+.results em{
+  color:red
+}
+
 .pagination{
   display: flex;
   list-style: none;
   transition: box-shadow 0.3s ease-in-out;
   opacity: 0;
   animation: fadeIn 1.5s ease-in-out forwards;
+  margin-left: 17vmax;
+  padding-bottom: 5%;
+
 }
 
 .pagination__item--active {
@@ -153,10 +155,6 @@ p {
   justify-content: center;
   align-items: center;
   transition: .5s;
-}
-
-.results em{
-  color:red
 }
 
 .pagination_button{
@@ -196,9 +194,16 @@ p {
 
 .nada_encontrado{
   transition: box-shadow 0.3s ease-in-out;
-
   opacity: 0;
   animation: fadeIn 1.5s ease-in-out forwards;
+  margin-top: 8vmax;
+}
+
+.NumeroResultados{
+  margin-left: 10vmax;
+  font-size: 1vmax;
+  margin-top: 8vmax;
+  color: #535252;
 }
 
 

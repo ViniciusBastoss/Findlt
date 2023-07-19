@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import '../styless/SearchBar.css';
 import NameBuscador from './NameBuscador';
 
-const SearchBar = ({ termoBusca, handleChange, handleSubmit, setExBotPag}) => {
-  const [botaoPressionado, setBotaoPressionado] = useState(false);
+const SearchBar = ({ termoBusca,setBotaoPesquisaAtivado, handleChange, handleSubmit, setExBotPag}) => {
+  const [AlterarEstilo, setAlterarEstilo] = useState(false);
   const [isEstiloA, setIsEstiloA] = useState(true);
   
 
   const alternarEstilo = () => {
-    if (!botaoPressionado && !(termoBusca.trim() === '')) {
+    setBotaoPesquisaAtivado(true);
+    if (!AlterarEstilo && !(termoBusca.trim() === '')) {
       setIsEstiloA(!isEstiloA);
-      setBotaoPressionado(true);
+      setAlterarEstilo(true);
       setExBotPag(true);
     }
     else
