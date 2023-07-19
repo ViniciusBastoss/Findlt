@@ -11,9 +11,9 @@ const Pagination = ({ totalPages, atualPage, setPagina, exibirBotoesPaginacao })
     <ul className='pagination'>
       {exibirBotoesPaginacao && (
         <li>
-          <button
+          <button 
             onClick={() => setPagina(atualPage - 1)}
-            disabled={atualPage <= 1}
+            disabled={atualPage <= 1} className='pagination_ProxAnt'
           >
             Anterior
           </button>
@@ -25,7 +25,7 @@ const Pagination = ({ totalPages, atualPage, setPagina, exibirBotoesPaginacao })
           <li key={page}>
             <button
               onClick={() => setPagina(page)}
-              className={page === atualPage ? 'pagination__item--active' : null}
+              className={page === atualPage ? 'pagination__item--active' : 'pagination_button'}
             >
               {page}
             </button>
@@ -35,7 +35,7 @@ const Pagination = ({ totalPages, atualPage, setPagina, exibirBotoesPaginacao })
         <li>
           <button
             onClick={() => setPagina(atualPage + 1)}
-            disabled={atualPage >= totalPages}
+            disabled={atualPage >= totalPages} className='pagination_ProxAnt'
           >
             Próxima
           </button>

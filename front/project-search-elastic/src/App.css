@@ -3,7 +3,8 @@ body {
   margin: 0vh;
   height: 100vh;
   width: 98vw;
-  background: linear-gradient(#60eaba, #4ee7ea, #0056b3);
+  /*background: linear-gradient(#303030, #171717, #050608);*/
+  background: #ffffff;
   /*overflow: hidden;*/
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -50,9 +51,31 @@ ul {
 .results li {
   margin-bottom: 0.5vmax;
   padding: 1vmax;
-  border: 1px solid #ccc;
-  background: #0d0505;
-  border-radius: 3vmax;
+  /*border: 1px solid #ccc;*/
+  border: none;
+  border-radius: 1vmax;
+
+  background: #faf9f9;
+
+  transition: box-shadow 0.3s ease-in-out;
+
+  opacity: 0;
+  animation: fadeIn 1.5s ease-in-out forwards;
+
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.results li:hover,
+.results li:focus{
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 h3 {
@@ -61,7 +84,7 @@ h3 {
 }
 
 a {
-  color: #007bff;
+  color: #0a0dbe;
   text-decoration: none;
 }
 
@@ -71,7 +94,7 @@ a:hover {
 
 p {
   margin: 0;
-  color: #ffffff;
+  color: #000000;
 }
 
 .buscador {
@@ -86,6 +109,7 @@ p {
 
 .resultados-lista {
   margin-top: 20px;
+ 
 }
 
 .espacamento-superior {
@@ -94,6 +118,8 @@ p {
 
 .results {
   margin-top: 12%; /* Espaçamento superior maior apenas para a lista de resultados */
+  width: 40vmax;
+  margin-left: 10vmax;
 }
 
 .resultados-lista li {
@@ -109,14 +135,54 @@ p {
 .pagination__item--active {
   background: none;
   font-weight: bold;
-  border:none;
+  
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #0a0b0d;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .5s;
 }
 
-em{
+.results em{
   color:red
 }
 
+.pagination_button{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #fcf8f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .5s;
+}
 
+.pagination_button:hover {
+  background: #0a0b0d;
+  color: #ffffff;
+}
 
+.pagination_ProxAnt{
+  background: none;
+  font-weight: bold;
+  border: none;
+  width: 60px;
+  height: 30px;
+  border-radius: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .5s;
+}
+
+.pagination_ProxAnt:hover {
+  background: #0a0b0d;
+  color: #ffffff;
+}
 
 

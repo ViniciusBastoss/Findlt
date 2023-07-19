@@ -1,20 +1,26 @@
 .titulo {
-   color: darkcyan;
    font-size: 6vh;
    position: absolute;
    top:20%;
    left: 50%;
    transform: translate(-50%, -50%) ;
+    background-image: linear-gradient(to top, #4400ff,darkcyan, #3bacb2);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
    
 }
 
 .titulo2 {
-   color: darkcyan;
    font-size: 2vh;
   position: absolute;
   top:8%;
   left: 4%;
   transform: translate(-50%, -50%) ;
+  background-image: linear-gradient(to top, #4400ff,darkcyan, #3bacb2);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
  a:link {
