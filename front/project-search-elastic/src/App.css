@@ -78,6 +78,11 @@ ul {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
+.results {
+  animation: pulsate 1s infinite;
+}
+
+
 h3 {
   margin: 0;
   font-size: 18px;
@@ -130,6 +135,9 @@ p {
 .pagination{
   display: flex;
   list-style: none;
+  transition: box-shadow 0.3s ease-in-out;
+  opacity: 0;
+  animation: fadeIn 1.5s ease-in-out forwards;
 }
 
 .pagination__item--active {
@@ -183,6 +191,14 @@ p {
 .pagination_ProxAnt:hover {
   background: #0a0b0d;
   color: #ffffff;
+}
+
+
+.nada_encontrado{
+  transition: box-shadow 0.3s ease-in-out;
+
+  opacity: 0;
+  animation: fadeIn 1.5s ease-in-out forwards;
 }
 
 

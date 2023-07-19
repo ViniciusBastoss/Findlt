@@ -54,6 +54,7 @@ function Buscador() {
     };
 
     fetchResultados();
+
   }, [pagina]);
 
   const isTermoBuscaVazio = termoBusca.trim() === '';
@@ -86,17 +87,16 @@ function Buscador() {
           </div>
   
           {exibirNadaEncontrado && exibirBotoesPaginacao && totalPaginas === 0 && (
-            <h1>Nada encontrado</h1>
-          )}
+            <div className='nada_encontrado'><h1>Nada encontrado</h1></div>
+        )}
   
-          {!isLoading && ( // Renderiza os botões de paginação somente se não estiver em estado de carregamento
             <Pagination
               totalPages={totalPaginas}
               atualPage={pagina}
               setPagina={setPagina}
               exibirBotoesPaginacao={exibirBotoesPaginacao && !totalPaginas < 1}
             />
-          )}
+
         </>
       )}
     </div>
