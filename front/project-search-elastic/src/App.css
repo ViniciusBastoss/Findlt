@@ -192,11 +192,17 @@ p {
 }
 
 
-.nada_encontrado{
+.nada_encontrado {
   transition: box-shadow 0.3s ease-in-out;
   opacity: 0;
   animation: fadeIn 1.5s ease-in-out forwards;
-  margin-top: 8vmax;
+  /*margin-top: 18vh;*/
+  
+  font-size: 0.7vmax;
+  position: fixed;
+  top: 15%; /* Distância de 20 pixels do topo da tela */
+  left: 15%; /* Centralizar horizontalmente na tela */
+  transform: translateX(-50%);
 }
 
 .NumeroResultados{

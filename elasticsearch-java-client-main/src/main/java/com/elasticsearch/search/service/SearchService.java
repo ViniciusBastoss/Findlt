@@ -28,7 +28,7 @@ public class SearchService {
         this.esClient = esClient;
     }
 
-    public InlineResponse200 submitQuery(String query, Integer page, Boolean includePages) {
+    public InlineResponse200 submitQuery(String query, Integer page, Boolean numResults) {
         InlineResponse200 resultF = new InlineResponse200();
         if(isNull(query) || query.isBlank()){
             return new InlineResponse200();
@@ -37,7 +37,7 @@ public class SearchService {
             page = 1;
         }
 
-        var searchResponse = esClient.search(query, page, includePages, pages);
+        var searchResponse = esClient.search(query, page, numResults, pages);
 
         List<Hit<ObjectNode>> hits = searchResponse.hits().hits();
 
@@ -50,7 +50,7 @@ public class SearchService {
                         .title(h.source().get("title").asText())
                         .url(h.source().get("url").asText())
                 ).collect(Collectors.toList());
-        resultF.setPages(pages.get());
+        resultF.setNumResults(pages.get());
         resultF.setResults(resultsList);
         return resultF;
     }

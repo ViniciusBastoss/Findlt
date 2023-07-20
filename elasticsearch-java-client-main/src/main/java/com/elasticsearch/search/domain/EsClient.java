@@ -70,7 +70,7 @@ public class EsClient {
         elasticsearchClient = new ElasticsearchClient(transport);
     }
 
-    public SearchResponse search(String query, Integer page, Boolean includePages, AtomicInteger pages) {
+    public SearchResponse search(String query, Integer page, Boolean numResults, AtomicInteger totalResults) {
         //Highlight
         Map<String, HighlightField> map = new HashMap<>();
         map.put("content", HighlightField.of(hf -> hf.numberOfFragments(1).fragmentSize(300)));
@@ -87,13 +87,13 @@ public class EsClient {
         SearchResponse<ObjectNode> response;
         SearchResponse<ObjectNode> response2;
         try {
-            if(includePages){
+            if(numResults){
                 response2 = elasticsearchClient.search(s -> s
                         .index("wikipedia").from(0).size(10000)
                         .query(matchQuery).highlight(highlight), ObjectNode.class
                 );
-                List<Hit<ObjectNode>> hits = response2.hits().hits();
-                pages.set((int)Math.ceil((double)hits.size()/PAGE_SIZE));
+                totalResults.set(response2.hits().hits().size());
+
             }
             response = elasticsearchClient.search(s -> s
                 .index("wikipedia").from(PAGE_SIZE * (page - 1)).size(PAGE_SIZE)

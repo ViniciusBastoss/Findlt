@@ -8,20 +8,20 @@
   .search2 {
     position: absolute;
     top:10%;
-    left: 30%;
+    left: 30vw;
     transform: translate(-50%, -50%) ;
  }
 
  .search-bar {
   background: #ffffff;
-  height: 4vh;
-  width: 43vmax;
+  height: 2vw;
+  width: 42vw;
   padding: 1vh;
   border-radius: 4vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 2px solid #000000; /* Adiciona uma borda sólida de 2 pixels na cor preta */
+  border: 0.3vmin solid #000000; /* Adiciona uma borda sólida de 2 pixels na cor preta */
 }
 
 
@@ -37,8 +37,8 @@
 }
   
 .search .search-button {
-  width: 3vmax;
-  height: 3vmax;
+  width: 2.5vw;
+  height: 4.7vh;
   border-radius: 50%;
   background: #ffffff;
   display: flex;
@@ -52,8 +52,8 @@
 }
 
 .search2 .search-button {
-  width: 3vmax;
-  height: 3vmax;
+  width: 2.5vw;
+  height: 4.7vh;;
   border-radius: 50%;
   background: #ffffff;
   display: flex;
@@ -64,6 +64,11 @@
 
 .search2 .search-button:hover {
   background: #0b0b0b;
+}
+
+.lupa{
+  width: 5vw;
+  height: 3vh;
 }
 
 

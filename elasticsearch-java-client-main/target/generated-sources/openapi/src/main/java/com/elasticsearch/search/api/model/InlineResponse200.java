@@ -16,36 +16,36 @@ import javax.validation.constraints.*;
 /**
  * InlineResponse200
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-07-19T14:32:11.886784027-03:00[America/Sao_Paulo]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-07-20T17:01:40.597201647-03:00[America/Sao_Paulo]")
 
 public class InlineResponse200  implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @JsonProperty("pages")
-  private Integer pages;
+  @JsonProperty("numResults")
+  private Integer numResults;
 
   @JsonProperty("results")
   @Valid
   private List<Result> results = null;
 
-  public InlineResponse200 pages(Integer pages) {
-    this.pages = pages;
+  public InlineResponse200 numResults(Integer numResults) {
+    this.numResults = numResults;
     return this;
   }
 
   /**
-   * Get pages
-   * @return pages
+   * Get numResults
+   * @return numResults
   */
   @ApiModelProperty(value = "")
 
 
-  public Integer getPages() {
-    return pages;
+  public Integer getNumResults() {
+    return numResults;
   }
 
-  public void setPages(Integer pages) {
-    this.pages = pages;
+  public void setNumResults(Integer numResults) {
+    this.numResults = numResults;
   }
 
   public InlineResponse200 results(List<Result> results) {
@@ -87,13 +87,13 @@ public class InlineResponse200  implements Serializable {
       return false;
     }
     InlineResponse200 inlineResponse200 = (InlineResponse200) o;
-    return Objects.equals(this.pages, inlineResponse200.pages) &&
+    return Objects.equals(this.numResults, inlineResponse200.numResults) &&
         Objects.equals(this.results, inlineResponse200.results);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pages, results);
+    return Objects.hash(numResults, results);
   }
 
   @Override
@@ -101,7 +101,7 @@ public class InlineResponse200  implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class InlineResponse200 {\n");
     
-    sb.append("    pages: ").append(toIndentedString(pages)).append("\n");
+    sb.append("    numResults: ").append(toIndentedString(numResults)).append("\n");
     sb.append("    results: ").append(toIndentedString(results)).append("\n");
     sb.append("}");
     return sb.toString();

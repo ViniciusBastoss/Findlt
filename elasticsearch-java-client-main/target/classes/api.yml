@@ -22,12 +22,12 @@ paths:
           description: Page number
           schema:
             type: integer
-        - name: includePages  # Novo parâmetro booleano
+        - name: numResults
           in: query
-          description: Include the total number of pages in the response
+          description: Include the total number of results in the response
           schema:
             type: boolean
-            default: false   # Valor padrão é falso (não incluir o número total de páginas)
+            default: false
       responses:
         200:
           description: OK
@@ -36,7 +36,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  pages:
+                  numResults:
                     type: integer
                   results:
                     type: array
