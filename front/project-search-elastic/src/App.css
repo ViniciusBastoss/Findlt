@@ -27,7 +27,7 @@ form {
 
 input[type="text"] {
   padding: 0.5vmax;
-  font-size: 1.2vmax;
+  font-size: 1.5rem;
 }
 
 button[type="submit"] {

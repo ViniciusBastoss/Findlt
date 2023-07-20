@@ -1,7 +1,7 @@
 .titulo {
-   font-size: 3vw;
+   font-size: 3.5rem;
    position: absolute;
-   top:20%;
+   top:14rem;
    left: 50%;
    transform: translate(-50%, -50%) ;
     background-image: linear-gradient(to top, #4400ff,darkcyan, #3bacb2);
@@ -12,10 +12,10 @@
 }
 
 .titulo2 {
-   font-size: 1.2vw;
+   font-size: 1.2rem;
   position: absolute;
-  top:8%;
-  left: 4%;
+  top: 4.5rem;
+  left:4.5rem;
   transform: translate(-50%, -50%) ;
   background-image: linear-gradient(to top, #4400ff,darkcyan, #3bacb2);
   background-clip: text;
@@ -26,4 +26,11 @@
  a:link {
    text-decoration: none;
  }
+
+ @media (max-width: 45rem) {
+  .titulo {
+    font-size: 2.5rem;
+ }
+ 
+}
  

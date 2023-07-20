@@ -1,18 +1,19 @@
 .search {
      position: absolute;
-     top:40%;
+     top:24rem;
      left: 50%;
      transform: translate(-50%, -50%) ;
   }
 
   .search2 {
-    position: absolute;
-    top:10%;
-    left: 30vw;
-    transform: translate(-50%, -50%) ;
+    position: relative;
+    top:5rem;
+    left: 59rem;
+    transform: translate(-50rem, -2rem) ;
  }
 
- .search-bar {
+
+ /*.search-bar {
   background: #ffffff;
   height: 2vw;
   width: 42vw;
@@ -21,9 +22,37 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 0.3vmin solid #000000; /* Adiciona uma borda sólida de 2 pixels na cor preta */
+  border: 0.3vmin solid #000000;} */
+
+  .search-bar {
+  background: #ffffff;
+  height: 2rem;
+  width: 42rem;
+  padding: 0.7rem;
+  border-radius: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 0.15rem solid #000000; 
+  
 }
 
+@media (max-width: 45rem) {
+  .search .search-bar {
+    width: 25rem;
+  }
+}
+
+@media (max-width: 53rem) {
+  .search2 .search-bar {
+    width: 23rem;
+  }
+}
+
+.search2 input[type="text"] {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+}
 
 .search-text{
   border:none;
@@ -31,14 +60,14 @@
   outline: none;
   padding: 0;
   color: #000000;
-  font-size: 1.4vmax;
-  line-height: 3vmax;
-  width: 50vh;
+  font-size: 1.4rem;
+  line-height: 3rem;
+  width: 50rem;
 }
   
 .search .search-button {
-  width: 2.5vw;
-  height: 4.7vh;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   background: #ffffff;
   display: flex;
@@ -52,8 +81,8 @@
 }
 
 .search2 .search-button {
-  width: 2.5vw;
-  height: 4.7vh;;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   background: #ffffff;
   display: flex;
@@ -67,8 +96,8 @@
 }
 
 .lupa{
-  width: 5vw;
-  height: 3vh;
+  width: 1.6rem;
+  height: 1.6rem;
 }
 
 
