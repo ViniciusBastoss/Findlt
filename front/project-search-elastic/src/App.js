@@ -12,15 +12,16 @@ function Buscador() {
   const[exibirNadaEncontrado, setExibirNadaEncontrado] = useState(false);
   const isTermoBuscaVazio = termoBusca.trim() === '';
   const [exibirBotoesPaginacao, setExBotPag] = useState(pagina !== 0);
-  const updateExBotPag = (newValue)=>{
-    setExBotPag(newValue);
-  };
+  const [termoBuscaAntigo, setTermoBuscaAntigo] = useState('');
+
+ 
   const[botaoPesquisaAtivado,setBotaoPesquisaAtivado] = useState(true);
   const [textBusc, setTextBusc] = useState('');
 
   const handleChange = (event) => {
       setTermoBusca(event.target.value);
   }
+
 
   const setPaginaButton = (page) =>{
     if(botaoPesquisaAtivado)
@@ -33,6 +34,7 @@ function Buscador() {
     event.preventDefault();
     setPagina(1);
     setIsLoading(true); // Inicia o carregamento
+    setTermoBuscaAntigo(termoBusca);
 
     try {
       const response = await fetch(`http://localhost:8080/v1/search?query=${termoBusca}&page=1&includePages=true`);
@@ -47,15 +49,19 @@ function Buscador() {
     }
 
     setIsLoading(false); // Finaliza o carregamento
-    setTextBusc(termoBusca);
+
   };
 
   useEffect(() => {
     const fetchResultados = async () => {
       setIsLoading(true); // Inicia o carregamento
-
+      
       try {
-        const response = await fetch(`http://localhost:8080/v1/search?query=${textBusc}&page=${pagina}`);
+        let response;
+        if(termoBuscaAntigo != termoBusca)
+        response = await fetch(`http://localhost:8080/v1/search?query=${termoBuscaAntigo}&page=${pagina}`);
+        else
+        response = await fetch(`http://localhost:8080/v1/search?query=${termoBusca}&page=${pagina}`);
         const data = await response.json();
         setResultados(data.results);
         if (data.results.length === 0) {
@@ -82,7 +88,7 @@ function Buscador() {
         </div>
       ) : (
         <>
-        {resultados  && totalPaginas != 0 && (<div className='NumeroResultados'>Aproximadamente {totalPaginas * 10} resultados encontrados</div>)}
+        {resultados  && totalPaginas != 0 &&(<div className='NumeroResultados'>Aproximadamente {totalPaginas * 10} resultados encontrados</div>)}
          <div className={`results ${isTermoBuscaVazio ? 'hidden' : ''}`}>
             <ul>
               {resultados && resultados.map((resultado) => (

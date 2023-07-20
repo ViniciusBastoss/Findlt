@@ -16,23 +16,23 @@ body {
 }
 
 h1 {
-  margin-bottom: 20px;
+  margin-bottom: 1vmax;
   text-align: center;
 }
 
 form {
-  margin-bottom: 20px;
+  margin-bottom: 1vmax;
   text-align: center;
 }
 
 input[type="text"] {
-  padding: 10px;
-  font-size: 16px;
+  padding: 0.5vmax;
+  font-size: 1.2vmax;
 }
 
 button[type="submit"] {
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 0.5vmax 1vmax;
+  font-size: 1vmax;
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -75,12 +75,12 @@ ul {
 
 .results li:hover,
 .results li:focus{
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 1vmax rgba(0, 0, 0, 0.3);
 }
 
 h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 1.2vmax;
 }
 
 a {
@@ -103,17 +103,17 @@ p {
 
 .buscador.realizou-busca form {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 2vmax;
+  left: 2vmax;
 }
 
 .resultados-lista {
-  margin-top: 20px;
+  margin-top: 2vmax;
  
 }
 
 .espacamento-superior {
-  margin-top: 40px; /* Espaçamento superior maior apenas para a lista de resultados */
+  margin-top: 4vmax; /* Espaçamento superior maior apenas para a lista de resultados */
 }
 
 .results {
@@ -146,8 +146,8 @@ p {
   background: none;
   font-weight: bold;
   
-  width: 30px;
-  height: 30px;
+  width: 2vmax;
+  height: 2vmax;
   border-radius: 50%;
   background: #0a0b0d;
   color: #ffffff;
@@ -158,8 +158,8 @@ p {
 }
 
 .pagination_button{
-  width: 30px;
-  height: 30px;
+  width: 2vmax;
+  height: 2vmax;
   border-radius: 50%;
   background: #fcf8f8;
   display: flex;
@@ -177,8 +177,8 @@ p {
   background: none;
   font-weight: bold;
   border: none;
-  width: 60px;
-  height: 30px;
+  width: 4vmax;
+  height: 2vmax;
   border-radius: 10%;
   display: flex;
   justify-content: center;

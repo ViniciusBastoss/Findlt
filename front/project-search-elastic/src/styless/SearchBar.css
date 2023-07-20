@@ -31,14 +31,14 @@
   outline: none;
   padding: 0;
   color: #000000;
-  font-size: 16px;
-  line-height: 40px;
+  font-size: 1.4vmax;
+  line-height: 3vmax;
   width: 50vh;
 }
   
 .search .search-button {
-  width: 40px;
-  height: 40px;
+  width: 3vmax;
+  height: 3vmax;
   border-radius: 50%;
   background: #ffffff;
   display: flex;
@@ -52,8 +52,8 @@
 }
 
 .search2 .search-button {
-  width: 40px;
-  height: 40px;
+  width: 3vmax;
+  height: 3vmax;
   border-radius: 50%;
   background: #ffffff;
   display: flex;
