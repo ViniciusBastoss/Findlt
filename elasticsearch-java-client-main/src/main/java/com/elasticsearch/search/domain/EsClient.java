@@ -1,9 +1,6 @@
 package com.elasticsearch.search.domain;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
-import co.elastic.clients.elasticsearch._types.query_dsl.MatchPhraseQuery;
-import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
-import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.*;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Highlight;
 import co.elastic.clients.elasticsearch.core.search.HighlightField;
@@ -49,24 +46,24 @@ public class EsClient {
     private void createConnection() {
         CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(AuthScope.ANY,
-            new UsernamePasswordCredentials(user, pwd));
+                new UsernamePasswordCredentials(user, pwd));
 
         SSLFactory sslFactory = SSLFactory.builder()
-            .withUnsafeTrustMaterial()
-            .withUnsafeHostnameVerifier()
-            .build();
+                .withUnsafeTrustMaterial()
+                .withUnsafeHostnameVerifier()
+                .build();
 
         RestClient restClient = RestClient.builder(
-                new HttpHost("localhost", 9200, "https"))
-            .setHttpClientConfigCallback((HttpAsyncClientBuilder httpClientBuilder) -> httpClientBuilder
-                .setDefaultCredentialsProvider(credentialsProvider)
-                .setSSLContext(sslFactory.getSslContext())
-                .setSSLHostnameVerifier(sslFactory.getHostnameVerifier())
-            ).build();
+                        new HttpHost("localhost", 9200, "https"))
+                .setHttpClientConfigCallback((HttpAsyncClientBuilder httpClientBuilder) -> httpClientBuilder
+                        .setDefaultCredentialsProvider(credentialsProvider)
+                        .setSSLContext(sslFactory.getSslContext())
+                        .setSSLHostnameVerifier(sslFactory.getHostnameVerifier())
+                ).build();
 
         ElasticsearchTransport transport = new RestClientTransport(
-            restClient,
-            new JacksonJsonpMapper()
+                restClient,
+                new JacksonJsonpMapper()
         );
 
         elasticsearchClient = new ElasticsearchClient(transport);
@@ -77,18 +74,28 @@ public class EsClient {
         Map<String, HighlightField> map = new HashMap<>();
         map.put("content", HighlightField.of(hf -> hf.numberOfFragments(1).fragmentSize(300)));
         Highlight highlight = Highlight.of(
-            h -> h.type(HighlighterType.Unified)
-                .fields(map)
+                h -> h.type(HighlighterType.Unified)
+                        .fields(map)
         );
 
         //Query
         Query matchQuery = MatchQuery.of(
-                q -> q.field("content").query(query))
-            ._toQuery();
+                        q -> q.field("content").query(query))
+                ._toQuery();
 
         Query matchPhraseQuery = MatchPhraseQuery.of(
                 q -> q.field("content").query(query)
         )._toQuery();
+
+        Query fuzzyQuery = FuzzyQuery.of(
+                q -> q.field("content").maxExpansions(1).value(query).fuzziness("1")
+        )._toQuery();
+
+        System.out.println("Consulta Fuzzy Match alterada: " + fuzzyQuery.toString());
+
+
+
+
 
         SearchResponse<ObjectNode> response;
         SearchResponse<ObjectNode> response2;
@@ -114,13 +121,13 @@ public class EsClient {
                             .query(matchQuery).highlight(highlight), ObjectNode.class
                     );
                     totalResults.set(response2.hits().hits().size());
-
                 }
 
                 response = elasticsearchClient.search(s -> s
                         .index("wikipedia").from(PAGE_SIZE * (page - 1)).size(PAGE_SIZE)
                         .query(matchQuery).highlight(highlight), ObjectNode.class
                 );
+
 
             }
         } catch (IOException e) {

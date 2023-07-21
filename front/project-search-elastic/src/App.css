@@ -50,7 +50,7 @@ ul {
   background: #faf9f9;
   transition: box-shadow 0.3s ease-in-out;
   opacity: 0;
-  animation: fadeIn 1.8s ease-in-out forwards;
+  animation: fadeIn 1s ease-in-out forwards;
 
 }
 
@@ -105,12 +105,6 @@ p {
   margin-left: 11rem;
 }
 
-@media (max-width:60rem){
-  .results {
-    margin-left: 0rem;
-  }
-}
-
 .resultados-lista li {
   display: flex;
   flex-direction: column;
@@ -126,7 +120,7 @@ p {
   transition: box-shadow 0.3s ease-in-out;
   opacity: 0;
   animation: fadeIn 1.5s ease-in-out forwards;
-  margin-left: 18rem;
+  margin-left: 17rem;
   padding-bottom: 5rem;
 
 }
@@ -188,10 +182,10 @@ p {
   animation: fadeIn 1.5s ease-in-out forwards;
   /*margin-top: 18vh;*/
   
-  font-size: 0.7vmax;
+  font-size: 0.8rem;
   position: fixed;
-  top: 15%; /* Distância de 20 pixels do topo da tela */
-  left: 15%; /* Centralizar horizontalmente na tela */
+  top: 9rem; /* Distância de 20 pixels do topo da tela */
+  left: 15rem; /* Centralizar horizontalmente na tela */
   transform: translateX(-50%);
 }
 
@@ -203,4 +197,18 @@ p {
   animation: fadeIn 1.8s ease-in-out forwards;
 }
 
+@media (max-width:60rem){
+  .results {
+    margin-left: 1rem;
+  }
+
+  .pagination{
+    margin-left: 5rem;
+  
+  }
+
+  .NumeroResultados{
+    margin-left: 3rem;
+  }
+}
 

@@ -14,6 +14,7 @@ function Buscador() {
   const [exibirBotoesPaginacao, setExBotPag] = useState(pagina !== 0);
   const [termoBuscaAntigo, setTermoBuscaAntigo] = useState('');
   const [totalResults, setTotalResults] = useState(0);
+  const [responseTime, setResponseTime] = useState(null);
 
   const handleChange = (event) => {
       setTermoBusca(event.target.value);
@@ -27,6 +28,7 @@ function Buscador() {
   
 
   const handleSubmit = async (event) => {
+    const startTime = Date.now();
     event.preventDefault();
     setIsLoading(true); // Inicia o carregamento
     setTermoBuscaAntigo(termoBusca);
@@ -38,6 +40,8 @@ function Buscador() {
       setTotalPaginas(Math.ceil(data.numResults/10.0));
       setTotalResults(data.numResults)
       setPagina(1);
+      const endTime = Date.now();
+      setResponseTime((endTime - startTime)/1000);
       if (data.results.length === 0) {
         setExibirNadaEncontrado(true);
       }
@@ -84,7 +88,7 @@ function Buscador() {
   
       {!isLoading  && (
         <>
-        {resultados  && totalPaginas != 0 &&(<div className='NumeroResultados'><p>Foram encontrados {totalResults} resultados</p></div>)}
+        {resultados  && totalPaginas != 0 &&(<div className='NumeroResultados'><p> {totalResults} resultados ({responseTime} segundos)</p></div>)}
          <div className={`results`}>
             <ul>
               {resultados && resultados.map((resultado) => (
