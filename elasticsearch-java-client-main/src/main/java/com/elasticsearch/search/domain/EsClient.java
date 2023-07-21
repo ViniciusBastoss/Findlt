@@ -1,7 +1,9 @@
 package com.elasticsearch.search.domain;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch._types.query_dsl.MatchPhraseQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Highlight;
 import co.elastic.clients.elasticsearch.core.search.HighlightField;
@@ -84,21 +86,43 @@ public class EsClient {
                 q -> q.field("content").query(query))
             ._toQuery();
 
+        Query matchPhraseQuery = MatchPhraseQuery.of(
+                q -> q.field("content").query(query)
+        )._toQuery();
+
         SearchResponse<ObjectNode> response;
         SearchResponse<ObjectNode> response2;
         try {
             if(numResults){
                 response2 = elasticsearchClient.search(s -> s
                         .index("wikipedia").from(0).size(10000)
-                        .query(matchQuery).highlight(highlight), ObjectNode.class
+                        .query(matchPhraseQuery).highlight(highlight), ObjectNode.class
                 );
                 totalResults.set(response2.hits().hits().size());
 
             }
-            response = elasticsearchClient.search(s -> s
-                .index("wikipedia").from(PAGE_SIZE * (page - 1)).size(PAGE_SIZE)
-                .query(matchQuery).highlight(highlight), ObjectNode.class
-            );
+            if(query.charAt(0) == '\'' && query.charAt(query.length() - 1) == '\''){
+                response = elasticsearchClient.search(s -> s
+                        .index("wikipedia").from(PAGE_SIZE * (page - 1)).size(PAGE_SIZE)
+                        .query(matchPhraseQuery).highlight(highlight), ObjectNode.class
+                );
+            }
+            else{
+                if(numResults){
+                    response2 = elasticsearchClient.search(s -> s
+                            .index("wikipedia").from(0).size(10000)
+                            .query(matchQuery).highlight(highlight), ObjectNode.class
+                    );
+                    totalResults.set(response2.hits().hits().size());
+
+                }
+
+                response = elasticsearchClient.search(s -> s
+                        .index("wikipedia").from(PAGE_SIZE * (page - 1)).size(PAGE_SIZE)
+                        .query(matchQuery).highlight(highlight), ObjectNode.class
+                );
+
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
