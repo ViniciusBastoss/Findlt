@@ -15,7 +15,7 @@
    font-size: 1.2rem;
   position: absolute;
   top: 4.5rem;
-  left:4.5rem;
+  left:5rem;
   transform: translate(-50%, -50%) ;
   background-image: linear-gradient(to top, #4400ff,darkcyan, #3bacb2);
   background-clip: text;

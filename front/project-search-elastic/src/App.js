@@ -28,7 +28,6 @@ function Buscador() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setPagina(1);
     setIsLoading(true); // Inicia o carregamento
     setTermoBuscaAntigo(termoBusca);
 
@@ -38,6 +37,7 @@ function Buscador() {
       setResultados(data.results);
       setTotalPaginas(Math.ceil(data.numResults/10.0));
       setTotalResults(data.numResults)
+      setPagina(1);
       if (data.results.length === 0) {
         setExibirNadaEncontrado(true);
       }
@@ -49,10 +49,14 @@ function Buscador() {
 
   };
 
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+
   useEffect(() => {
     const fetchResultados = async () => {
       setIsLoading(true); // Inicia o carregamento
-      
+      scrollToTop();
       try {
         let response;
         if(termoBuscaAntigo != termoBusca)
@@ -80,7 +84,7 @@ function Buscador() {
   
       {!isLoading  && (
         <>
-        {resultados  && totalPaginas != 0 &&(<div className='NumeroResultados'>Foram encontrados {totalResults} resultados </div>)}
+        {resultados  && totalPaginas != 0 &&(<div className='NumeroResultados'><p>Foram encontrados {totalResults} resultados</p></div>)}
          <div className={`results`}>
             <ul>
               {resultados && resultados.map((resultado) => (

@@ -16,31 +16,21 @@ body {
 }
 
 h1 {
-  margin-bottom: 1vmax;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
 form {
-  margin-bottom: 1vmax;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
-input[type="text"] {
-  padding: 0.5vmax;
-  font-size: 1.5rem;
-}
 
 button[type="submit"] {
-  padding: 0.5vmax 1vmax;
-  font-size: 1vmax;
-  background-color: #007bff;
-  color: #fff;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
   border: none;
   cursor: pointer;
-}
-
-button[type="submit"]:hover {
-  background-color: #0056b3;
 }
 
 ul {
@@ -52,15 +42,15 @@ ul {
 }
 
 .results li {
-  margin-bottom: 0.5vmax;
-  padding: 1vmax;
+  margin-bottom: 0.5rem;
+  padding: 1.1rem;
   /*border: 1px solid #ccc;*/
   border: none;
-  border-radius: 1vmax;
+  border-radius: 1rem;
   background: #faf9f9;
   transition: box-shadow 0.3s ease-in-out;
   opacity: 0;
-  animation: fadeIn 1.5s ease-in-out forwards;
+  animation: fadeIn 1.8s ease-in-out forwards;
 
 }
 
@@ -75,12 +65,12 @@ ul {
 
 .results li:hover,
 .results li:focus{
-  box-shadow: 0 0 1vmax rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
 }
 
 h3 {
   margin: 0;
-  font-size: 1.2vmax;
+  font-size: 1.5rem;
 }
 
 a {
@@ -95,6 +85,7 @@ a:hover {
 p {
   margin: 0;
   color: #000000;
+  font-size: 1.1rem;
 }
 
 .buscador {
@@ -103,23 +94,21 @@ p {
 
 .buscador.realizou-busca form {
   position: absolute;
-  top: 2vmax;
-  left: 2vmax;
+  top: 2rem;
+  left: 2rem;
 }
 
-.resultados-lista {
-  margin-top: 2vmax;
- 
-}
-
-.espacamento-superior {
-  margin-top: 4vmax; /* Espaçamento superior maior apenas para a lista de resultados */
-}
 
 .results {
-  margin-top: 0vmax; /* Espaçamento superior maior apenas para a lista de resultados */
-  width: 40vmax;
-  margin-left: 10vmax;
+  margin-top: 0rem; /* Espaçamento superior maior apenas para a lista de resultados */
+  width: 45rem;
+  margin-left: 11rem;
+}
+
+@media (max-width:60rem){
+  .results {
+    margin-left: 0rem;
+  }
 }
 
 .resultados-lista li {
@@ -137,8 +126,8 @@ p {
   transition: box-shadow 0.3s ease-in-out;
   opacity: 0;
   animation: fadeIn 1.5s ease-in-out forwards;
-  margin-left: 17vmax;
-  padding-bottom: 5%;
+  margin-left: 18rem;
+  padding-bottom: 5rem;
 
 }
 
@@ -146,8 +135,8 @@ p {
   background: none;
   font-weight: bold;
   
-  width: 2vmax;
-  height: 2vmax;
+  width: 2.3rem;
+  height: 2.3rem;
   border-radius: 50%;
   background: #0a0b0d;
   color: #ffffff;
@@ -158,8 +147,8 @@ p {
 }
 
 .pagination_button{
-  width: 2vmax;
-  height: 2vmax;
+  width: 2.3rem;
+  height: 2.3rem;
   border-radius: 50%;
   background: #fcf8f8;
   display: flex;
@@ -177,13 +166,14 @@ p {
   background: none;
   font-weight: bold;
   border: none;
-  width: 4vmax;
-  height: 2vmax;
+  width: 5rem;
+  height: 2rem;
   border-radius: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: .5s;
+  font-size: 1rem;
 }
 
 .pagination_ProxAnt:hover {
@@ -206,10 +196,11 @@ p {
 }
 
 .NumeroResultados{
-  margin-left: 10vmax;
-  font-size: 1vmax;
-  margin-top: 8vmax;
+  margin-left: 12rem;
+  font-size: 1.2rem;
+  margin-top: 5.5rem;
   color: #535252;
+  animation: fadeIn 1.8s ease-in-out forwards;
 }
 
 

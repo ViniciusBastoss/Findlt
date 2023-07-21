@@ -8,7 +8,7 @@
   .search2 {
     position: relative;
     top:5rem;
-    left: 59rem;
+    left: 61rem;
     transform: translate(-50rem, -2rem) ;
  }
 
@@ -45,7 +45,7 @@
 
 @media (max-width: 53rem) {
   .search2 .search-bar {
-    width: 23rem;
+    width: 29rem;
   }
 }
 
