@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../styless/SearchBar.css';
 import NameBuscador from './NameBuscador';
 
-const SearchBar = ({ termoBusca, handleChange, handleSubmit, setExBotPag }) => {
+const SearchBar = ({ termoBusca, handleChange, handleSubmit, setExBotPag, modoExibicao}) => {
   const [isEstiloA, setIsEstiloA] = useState(true);
   const[estiloTrocado, setEstiloTrocado] = useState(false);
   const alternarEstilo = () => {
@@ -17,16 +17,16 @@ const SearchBar = ({ termoBusca, handleChange, handleSubmit, setExBotPag }) => {
       <NameBuscador isEstiloA = {isEstiloA}/>
       <div className={isEstiloA ? 'search' : 'search2'}>
         <form onSubmit={handleSubmit}>
-          <div className="search-bar">
+          <div className={modoExibicao === 'normal' ? 'search-bar' : 'search-bar-noturno'}>
             <input
               type="text"
-              className="search-text"
+              className={modoExibicao === 'normal' ? 'search-text' : 'search-text-noturno'}
               value={termoBusca}
               onChange={handleChange}
             />
             <a href="#">
               <button
-                className="search-button"
+                className={modoExibicao === 'normal' ? 'search-button' : 'search-button-noturno'}
                 type="submit"
                 onClick={alternarEstilo}
                 disabled={termoBusca.trim() === ''}

@@ -15,6 +15,16 @@ function Buscador() {
   const [termoBuscaAntigo, setTermoBuscaAntigo] = useState('');
   const [totalResults, setTotalResults] = useState(0);
   const [responseTime, setResponseTime] = useState(null);
+  const [modoNoturno, setModoNoturno] = useState('normal');
+
+  const alternarModo = () => {
+    setModoNoturno(modoNoturno === 'normal' ? 'noturno' : 'normal');
+  }
+
+  useEffect(() => {
+    document.body.setAttribute('data-style', modoNoturno);
+  }, [modoNoturno]);
+
 
   const handleChange = (event) => {
       setTermoBusca(event.target.value);
@@ -57,6 +67,7 @@ function Buscador() {
     window.scrollTo(0, 0);
   };
 
+
   useEffect(() => {
     const fetchResultados = async () => {
       setIsLoading(true); // Inicia o carregamento
@@ -84,15 +95,24 @@ function Buscador() {
 
   return (
     <div>
-      <SearchBar termoBusca={termoBusca} handleChange={handleChange} handleSubmit={handleSubmit} setExBotPag={setExBotPag} />
-  
+      
+       <div class="nightButton">
+           <input type="checkbox" class="nightButton-checkbox" id="toggle" onClick={alternarModo} />
+          <label for="toggle" class="nightButton-label"></label>
+        </div>
+      <SearchBar 
+        termoBusca={termoBusca} 
+        handleChange={handleChange} 
+        handleSubmit={handleSubmit} 
+        setExBotPag={setExBotPag} 
+        modoExibicao={modoNoturno}/>
       {!isLoading  && (
         <>
-        {resultados  && totalPaginas != 0 &&(<div className='NumeroResultados'><p> {totalResults} resultados ({responseTime} segundos)</p></div>)}
+        {resultados  && totalPaginas != 0 &&(<div className={modoNoturno === 'noturno' ? 'NumeroResultados-noturno' : 'NumeroResultados'}><p> {totalResults} resultados ({responseTime} segundos)</p></div>)}
          <div className={`results`}>
             <ul>
               {resultados && resultados.map((resultado) => (
-                <li key={resultado.key}>
+                <li key={resultado.key} className={modoNoturno === 'noturno' ? 'noturno' : 'normal'}>
                   <a href={resultado.url}><h3>{resultado.title}</h3></a>
                   <p dangerouslySetInnerHTML={{ __html: resultado.abs }}></p>
                 </li>
@@ -101,7 +121,7 @@ function Buscador() {
           </div>
   
           {exibirNadaEncontrado && exibirBotoesPaginacao && totalPaginas === 0 && (
-            <div className='nada_encontrado'><h1>Nenhum resultado encontrado</h1></div>
+            <div className={modoNoturno === 'noturno' ? 'nada_encontrado-noturno' : 'nada_encontrado'}><h1>Nenhum resultado encontrado</h1></div>
         )}
   
             <Pagination
@@ -109,6 +129,7 @@ function Buscador() {
               atualPage={pagina}
               setPagina={setPaginaButton}
               exibirBotoesPaginacao={exibirBotoesPaginacao && !totalPaginas < 1}
+              modoExibicao={modoNoturno}
             />
 
         </>
