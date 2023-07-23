@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-07-23T12:09:28.271889026-03:00[America/Sao_Paulo]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-07-23T19:39:22.696371194-03:00[America/Sao_Paulo]")
 
 @Validated
 @Api(value = "search", description = "the search API")
@@ -45,6 +45,7 @@ public interface SearchApi {
      * @param query Query to be submitted (optional)
      * @param page Page number (optional)
      * @param numResults Include the total number of results in the response (optional, default to false)
+     * @param ordinationDate Use 0 for unsorted, 1 for ascending and 2 for descending (optional, default to 0)
      * @return OK (status code 200)
      *         or Unexpected error (status code 500)
      */
@@ -55,12 +56,12 @@ public interface SearchApi {
     @RequestMapping(value = "/search",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    default CompletableFuture<ResponseEntity<InlineResponse200>> search(@ApiParam(value = "Query to be submitted") @Valid @RequestParam(value = "query", required = false) String query,@ApiParam(value = "Page number") @Valid @RequestParam(value = "page", required = false) Integer page,@ApiParam(value = "Include the total number of results in the response", defaultValue = "false") @Valid @RequestParam(value = "numResults", required = false, defaultValue="false") Boolean numResults) {
+    default CompletableFuture<ResponseEntity<InlineResponse200>> search(@ApiParam(value = "Query to be submitted") @Valid @RequestParam(value = "query", required = false) String query,@ApiParam(value = "Page number") @Valid @RequestParam(value = "page", required = false) Integer page,@ApiParam(value = "Include the total number of results in the response", defaultValue = "false") @Valid @RequestParam(value = "numResults", required = false, defaultValue="false") Boolean numResults,@ApiParam(value = "Use 0 for unsorted, 1 for ascending and 2 for descending", defaultValue = "0") @Valid @RequestParam(value = "ordinationDate", required = false, defaultValue="0") Integer ordinationDate) {
         return CompletableFuture.supplyAsync(()-> {
             getRequest().ifPresent(request -> {
                 for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                     if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                        String exampleString = "{ \"numResults\" : 0, \"results\" : [ { \"abs\" : \"abs\", \"title\" : \"title\", \"url\" : \"url\" }, { \"abs\" : \"abs\", \"title\" : \"title\", \"url\" : \"url\" } ] }";
+                        String exampleString = "{ \"numResults\" : 0, \"results\" : [ { \"date\" : \"date\", \"abs\" : \"abs\", \"title\" : \"title\", \"url\" : \"url\" }, { \"date\" : \"date\", \"abs\" : \"abs\", \"title\" : \"title\", \"url\" : \"url\" } ] }";
                         ApiUtil.setExampleResponse(request, "application/json", exampleString);
                         break;
                     }

@@ -13,7 +13,7 @@ import javax.validation.constraints.*;
 /**
  * Result
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-07-23T12:09:28.271889026-03:00[America/Sao_Paulo]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-07-23T19:39:22.696371194-03:00[America/Sao_Paulo]")
 
 public class Result  implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -26,6 +26,9 @@ public class Result  implements Serializable {
 
   @JsonProperty("abs")
   private String abs;
+
+  @JsonProperty("date")
+  private String date;
 
   public Result title(String title) {
     this.title = title;
@@ -87,6 +90,26 @@ public class Result  implements Serializable {
     this.abs = abs;
   }
 
+  public Result date(String date) {
+    this.date = date;
+    return this;
+  }
+
+  /**
+   * Get date
+   * @return date
+  */
+  @ApiModelProperty(value = "")
+
+
+  public String getDate() {
+    return date;
+  }
+
+  public void setDate(String date) {
+    this.date = date;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -99,12 +122,13 @@ public class Result  implements Serializable {
     Result result = (Result) o;
     return Objects.equals(this.title, result.title) &&
         Objects.equals(this.url, result.url) &&
-        Objects.equals(this.abs, result.abs);
+        Objects.equals(this.abs, result.abs) &&
+        Objects.equals(this.date, result.date);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(title, url, abs);
+    return Objects.hash(title, url, abs, date);
   }
 
   @Override
@@ -115,6 +139,7 @@ public class Result  implements Serializable {
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("    abs: ").append(toIndentedString(abs)).append("\n");
+    sb.append("    date: ").append(toIndentedString(date)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -1,4 +1,7 @@
 package com.elasticsearch.search.service;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import co.elastic.clients.elasticsearch.core.search.Hit;
@@ -28,7 +31,7 @@ public class SearchService {
         this.esClient = esClient;
     }
 
-    public InlineResponse200 submitQuery(String query, Integer page, Boolean numResults) {
+    public InlineResponse200 submitQuery(String query, Integer page, Boolean numResults, Integer ordinationDate) {
         InlineResponse200 resultF = new InlineResponse200();
         if(isNull(query) || query.isBlank()){
             return new InlineResponse200();
@@ -37,7 +40,7 @@ public class SearchService {
             page = 1;
         }
 
-        var searchResponse = esClient.search(query, page, numResults, pages);
+        var searchResponse = esClient.search(query, page, numResults, pages, ordinationDate);
 
         List<Hit<ObjectNode>> hits = searchResponse.hits().hits();
 
@@ -49,6 +52,8 @@ public class SearchService {
                         .abs(treatContent(h.highlight().get("content").get(0)))
                         .title(h.source().get("title").asText())
                         .url(h.source().get("url").asText())
+                            .date(h.source().get("dt_creation").asText())
+
                 ).collect(Collectors.toList());
         resultF.setNumResults(pages.get());
         resultF.setResults(resultsList);

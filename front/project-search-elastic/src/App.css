@@ -329,5 +329,12 @@ p {
 .nightButton-checkbox:checked + .nightButton-label:before {
   transform: translateX(1.9rem); /* Posição do botão quando ativado */
 }
+.date{
+  margin-top: 1%;
+}
+.date p{
+  color: #6a6969;
+  font-size: 0.9rem;
+}
 
 

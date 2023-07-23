@@ -1,8 +1,8 @@
-openapi: "3.0.0"
+openapi: 3.0.0
 info:
   version: "1.0.0"
   title: "Sample API"
-  description: Initial example to submit Elasticsearch queries
+  description: "Initial example to submit Elasticsearch queries"
 
 paths:
   /search:
@@ -14,23 +14,29 @@ paths:
       parameters:
         - name: query
           in: query
-          description: Query to be submitted
+          description: "Query to be submitted"
           schema:
             type: string
         - name: page
           in: query
-          description: Page number
+          description: "Page number"
           schema:
             type: integer
         - name: numResults
           in: query
-          description: Include the total number of results in the response
+          description: "Include the total number of results in the response"
           schema:
             type: boolean
             default: false
+        - name: ordinationDate
+          in: query
+          description: "Use 0 for unsorted, 1 for ascending and 2 for descending"
+          schema:
+            type: integer
+            default: 0
       responses:
         200:
-          description: OK
+          description: "OK"
           content:
             application/json:
               schema:
@@ -43,7 +49,7 @@ paths:
                     items:
                       $ref: "#/components/schemas/Result"
         500:
-          description: Unexpected error
+          description: "Unexpected error"
           content:
             application/json:
               schema:
@@ -60,11 +66,13 @@ components:
           type: string
         abs:
           type: string
+        date:
+          type: string
     Error:
       type: object
       required:
         - message
       properties:
         message:
-          description: A human readable error message
+          description: "A human-readable error message"
           type: string

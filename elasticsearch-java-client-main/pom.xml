@@ -85,11 +85,13 @@
 			<artifactId>elasticsearch-rest-client</artifactId>
 			<version>${elasticsearch-rest-client.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>co.elastic.clients</groupId>
 			<artifactId>elasticsearch-java</artifactId>
 			<version>${elasticsearch-java.version}</version>
 		</dependency>
+
 
 		<!-- SSL -->
 		<dependency>
@@ -104,6 +106,7 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson-databind.version}</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>

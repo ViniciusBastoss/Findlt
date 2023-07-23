@@ -1,11 +1,14 @@
 package com.elasticsearch.search.domain;
+
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
-import co.elastic.clients.elasticsearch._types.query_dsl.*;
+import co.elastic.clients.elasticsearch._types.query_dsl.FuzzyQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.MatchPhraseQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Highlight;
 import co.elastic.clients.elasticsearch.core.search.HighlightField;
 import co.elastic.clients.elasticsearch.core.search.HighlighterType;
-import co.elastic.clients.elasticsearch.core.search.Hit;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import co.elastic.clients.transport.ElasticsearchTransport;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
@@ -20,10 +23,11 @@ import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.elasticsearch.client.RestClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import co.elastic.clients.elasticsearch._types.SortOptions;
+import co.elastic.clients.elasticsearch._types.SortOrder;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -69,7 +73,7 @@ public class EsClient {
         elasticsearchClient = new ElasticsearchClient(transport);
     }
 
-    public SearchResponse search(String query, Integer page, Boolean numResults, AtomicInteger totalResults) {
+    public SearchResponse search(String query, Integer page, Boolean numResults, AtomicInteger totalResults, Integer ordinationDate) {
         //Highlight
         Map<String, HighlightField> map = new HashMap<>();
         map.put("content", HighlightField.of(hf -> hf.numberOfFragments(1).fragmentSize(300)));
@@ -87,49 +91,64 @@ public class EsClient {
                 q -> q.field("content").query(query)
         )._toQuery();
 
-        Query fuzzyQuery = FuzzyQuery.of(
-                q -> q.field("content").maxExpansions(1).value(query).fuzziness("1")
-        )._toQuery();
-
-        System.out.println("Consulta Fuzzy Match alterada: " + fuzzyQuery.toString());
-
-
-
+//        Query fuzzyQuery = FuzzyQuery.of(
+//                q -> q.field("content").maxExpansions(1).value(query).fuzziness("1")
+//        )._toQuery();
 
 
         SearchResponse<ObjectNode> response;
-        SearchResponse<ObjectNode> response2;
+        SortOptions sort;
+        if(ordinationDate == 1)
+            sort = new SortOptions.Builder().field(f -> f.field("dt_creation").order(SortOrder.Asc)).build();
+        else
+            sort = new SortOptions.Builder().field(f -> f.field("dt_creation").order(SortOrder.Desc)).build();
         try {
-            if(numResults){
-                response2 = elasticsearchClient.search(s -> s
-                        .index("wikipedia").from(0).size(10000)
-                        .query(matchPhraseQuery).highlight(highlight), ObjectNode.class
-                );
-                totalResults.set(response2.hits().hits().size());
-
-            }
             if(query.charAt(0) == '\'' && query.charAt(query.length() - 1) == '\''){
-                response = elasticsearchClient.search(s -> s
-                        .index("wikipedia").from(PAGE_SIZE * (page - 1)).size(PAGE_SIZE)
-                        .query(matchPhraseQuery).highlight(highlight), ObjectNode.class
-                );
+                if(numResults){
+                    response = elasticsearchClient.search(s -> s
+                            .index("wikipedia").from(0).size(10000)
+                            .query(matchPhraseQuery).highlight(highlight), ObjectNode.class
+                    );
+                    totalResults.set(response.hits().hits().size());
+
+                }
+                if(ordinationDate == 1 || ordinationDate == 2){
+                    response = elasticsearchClient.search(s -> s
+                            .index("wikipedia").from(PAGE_SIZE * (page - 1)).size(PAGE_SIZE)
+                            .query(matchPhraseQuery).sort(sort).highlight(highlight), ObjectNode.class
+                    );
+                }
+                else {
+                    response = elasticsearchClient.search(s -> s
+                            .index("wikipedia").from(PAGE_SIZE * (page - 1)).size(PAGE_SIZE)
+                            .query(matchPhraseQuery).highlight(highlight), ObjectNode.class
+                    );
+                }
             }
+
             else{
                 if(numResults){
-                    response2 = elasticsearchClient.search(s -> s
+                    response = elasticsearchClient.search(s -> s
                             .index("wikipedia").from(0).size(10000)
                             .query(matchQuery).highlight(highlight), ObjectNode.class
                     );
-                    totalResults.set(response2.hits().hits().size());
+                    totalResults.set(response.hits().hits().size());
                 }
 
-                response = elasticsearchClient.search(s -> s
-                        .index("wikipedia").from(PAGE_SIZE * (page - 1)).size(PAGE_SIZE)
-                        .query(matchQuery).highlight(highlight), ObjectNode.class
-                );
-
-
+                 if(ordinationDate == 1 || ordinationDate == 2){
+                     response = elasticsearchClient.search(s -> s
+                             .index("wikipedia").from(PAGE_SIZE * (page - 1)).size(PAGE_SIZE)
+                             .query(matchQuery).sort(sort).highlight(highlight), ObjectNode.class
+                     );
+                 }
+                 else {
+                     response = elasticsearchClient.search(s -> s
+                             .index("wikipedia").from(PAGE_SIZE * (page - 1)).size(PAGE_SIZE)
+                             .query(matchQuery).highlight(highlight), ObjectNode.class
+                     );
+                 }
             }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
