@@ -284,6 +284,10 @@ p {
   .NumeroResultados{
     margin-left: 3rem;
   }
+
+  .NumeroResultados-noturno{
+    margin-left: 3rem;
+  }
 }
 
 .nightButton {
