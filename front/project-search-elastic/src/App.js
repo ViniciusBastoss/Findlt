@@ -92,16 +92,25 @@ function Buscador() {
 
     fetchResultados();
   }, [pagina, ordenacao]);
-
   
 
   const handleClickMaisRecentes = () => {
-    setOrdenacao(2)
-  };
+    if(ordenacao != 2)
+      setOrdenacao(2)
+    else
+      setOrdenacao(0)
+    setPagina(1);
+    };
+    
 
   const handleClickMaisAntigos = () => {
+    if(ordenacao != 1)
     setOrdenacao(1)
+  else
+    setOrdenacao(0)
+  setPagina(1);
   };
+
 
   return (
     <div>
@@ -115,10 +124,10 @@ function Buscador() {
         handleSubmit={handleSubmit} 
         setExBotPag={setExBotPag} 
         modoExibicao={modoNoturno}/>
-      <div className="filtros">
-        <button onClick={handleClickMaisRecentes}>Mais recentes</button>
-        <button onClick={handleClickMaisAntigos}>Mais antigos</button>
-      </div>
+      {resultados && totalPaginas !== 0 &&(<div className="filtros">
+        <button onClick={handleClickMaisRecentes} className={ordenacao == 2 ? 'ativo' : 'desativado'}>Mais recentes</button>
+        <button onClick={handleClickMaisAntigos} className={ordenacao == 1 ? 'ativo' : 'desativado'} > Mais antigos</button>
+      </div>)}
       {!isLoading && (
         <>
           {resultados && totalPaginas !== 0 && (

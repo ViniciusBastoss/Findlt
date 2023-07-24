@@ -16,7 +16,7 @@ body[data-style='noturno'] {
   height: 100vh;
   width: 98vw;
   /*background: linear-gradient(#303030, #171717, #050608);*/
-  background: #000000;
+  background: #333333;
   /*overflow: hidden;*/
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -60,10 +60,11 @@ ul {
   /*border: 1px solid #ccc;*/
   border: none;
   border-radius: 1rem;
-  background: #faf9f9;
+  background: #ffffff;
   transition: box-shadow 0.3s ease-in-out;
   opacity: 0;
   animation: fadeIn 1s ease-in-out forwards;
+  width: 50rem;
 }
 
 .results li.noturno {
@@ -72,10 +73,11 @@ ul {
   /*border: 1px solid #ccc;*/
   border: none;
   border-radius: 1rem;
-  background: #6a6969;
+  background: #333333;
   transition: box-shadow 0.3s ease-in-out;
   opacity: 0;
   animation: fadeIn 1s ease-in-out forwards;
+  width: 50rem;
 }
 
 .results li.noturno p{
@@ -335,6 +337,33 @@ p {
 .date p{
   color: #6a6969;
   font-size: 0.9rem;
+}
+
+.filtros{
+  margin-top: 2rem;
+  margin-left: 14rem;
+}
+
+.desativado {
+  padding: 0.7rem 1.4rem;
+  border-radius: 4rem;
+  font-size: 1rem;
+  background-color: #fdfdfd;
+  color: #000000;
+  border: none;
+  cursor: pointer;
+  border: 0.1rem solid #000000;
+}
+
+.ativo {
+  padding: 0.7rem 1.4rem;
+  border-radius: 4rem;
+  font-size: 1rem;
+  background-color: #3a6fd8;
+  color: #000000;
+  border: none;
+  cursor: pointer;
+  border: 0.1rem solid #000000;
 }
 
 
