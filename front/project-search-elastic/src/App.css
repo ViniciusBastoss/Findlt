@@ -1,4 +1,4 @@
-/* Estilização básica da página */
+
 body[data-style='normal'] {
   margin: 0vh;
   height: 100vh;
@@ -107,7 +107,7 @@ h3 {
 }
 
 a {
-  color: #0a0dbe;
+  color: #282bd8;
   text-decoration: none;
 }
 
@@ -133,7 +133,7 @@ p {
 
 
 .results {
-  margin-top: 0rem; /* Espaçamento superior maior apenas para a lista de resultados */
+  margin-top: 0rem; 
   width: 45rem;
   margin-left: 11rem;
 }
@@ -232,8 +232,8 @@ p {
   
   font-size: 0.8rem;
   position: fixed;
-  top: 9rem; /* Distância de 20 pixels do topo da tela */
-  left: 15rem; /* Centralizar horizontalmente na tela */
+  top: 9rem; 
+  left: 15rem; 
   transform: translateX(-50%);
 }
 
@@ -245,8 +245,8 @@ p {
   
   font-size: 0.8rem;
   position: fixed;
-  top: 9rem; /* Distância de 20 pixels do topo da tela */
-  left: 15rem; /* Centralizar horizontalmente na tela */
+  top: 9rem; 
+  left: 15rem; 
   transform: translateX(-50%);
   color: #ffffff;
 }
@@ -325,11 +325,11 @@ p {
 
 .nightButton-checkbox:checked + .nightButton-label {
   border: 0.15rem solid #ffffff; 
-  background-color: #000000; /* Cor de fundo quando ativado */
+  background-color: #000000; 
 }
 
 .nightButton-checkbox:checked + .nightButton-label:before {
-  transform: translateX(1.9rem); /* Posição do botão quando ativado */
+  transform: translateX(1.9rem); 
 }
 .date{
   margin-top: 1%;

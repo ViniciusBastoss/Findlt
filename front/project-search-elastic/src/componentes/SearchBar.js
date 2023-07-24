@@ -24,6 +24,7 @@ const SearchBar = ({ termoBusca, handleChange, handleSubmit, setExBotPag, modoEx
               value={termoBusca}
               onChange={handleChange}
             />
+
             <a href="#">
               <button
                 className={modoExibicao === 'normal' ? 'search-button' : 'search-button-noturno'}
